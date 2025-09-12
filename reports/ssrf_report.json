@@ -1,0 +1,17 @@
+{
+  "title": "Server-Side Request Forgery in URL Fetcher",
+  "description": "The URL fetcher functionality at /fetch.php is vulnerable to Server-Side Request Forgery (SSRF) attacks. The application makes HTTP requests to user-supplied URLs without proper validation.",
+  "steps_to_reproduce": "1. Navigate to https://vulnerable-app.com/fetch.php\n2. Enter http://127.0.0.1:22 in the URL field\n3. Click Fetch\n4. The application will attempt to connect to the SSH service on localhost\n5. Monitor network traffic to confirm the connection attempt",
+  "payload": "http://127.0.0.1:22",
+  "affected_url": "https://vulnerable-app.com/fetch.php",
+  "affected_software": "Custom PHP Web Application",
+  "software_version": "2.5.1",
+  "reporter": "Security Researcher",
+  "submission_date": "2024-01-20T13:20:00Z",
+  "additional_info": {
+    "protocols_allowed": ["http", "https", "file", "gopher"],
+    "internal_services": ["SSH", "Redis", "MySQL"],
+    "network_access": "Full internal network access",
+    "data_exfiltration": "Possible"
+  }
+}

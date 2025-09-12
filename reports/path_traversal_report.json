@@ -1,0 +1,17 @@
+{
+  "title": "Directory Traversal in File Download",
+  "description": "The file download functionality at /download.php is vulnerable to directory traversal attacks. An attacker can access arbitrary files on the server by manipulating the file parameter.",
+  "steps_to_reproduce": "1. Navigate to https://vulnerable-app.com/download.php\n2. Modify the file parameter to: ../../../etc/passwd\n3. Send the request: https://vulnerable-app.com/download.php?file=../../../etc/passwd\n4. The server will return the contents of /etc/passwd",
+  "payload": "../../../etc/passwd",
+  "affected_url": "https://vulnerable-app.com/download.php",
+  "affected_software": "Custom PHP Web Application",
+  "software_version": "2.3.0",
+  "reporter": "Security Analyst",
+  "submission_date": "2024-01-18T16:45:00Z",
+  "additional_info": {
+    "parameter": "file",
+    "encoding": "URL encoding",
+    "file_system": "Linux",
+    "sensitive_files": ["/etc/passwd", "/etc/shadow", "/etc/hosts"]
+  }
+}

@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  cve-triage:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: cve-triage-framework
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+      - ./artifacts:/app/artifacts
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - cve-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: cve-triage-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - cve-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: cve-triage-postgres
+    environment:
+      - POSTGRES_DB=cve_triage
+      - POSTGRES_USER=cve_user
+      - POSTGRES_PASSWORD=cve_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cve-network
+
+volumes:
+  postgres_data:
+
+networks:
+  cve-network:
+    driver: bridge

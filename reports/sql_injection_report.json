@@ -1,0 +1,16 @@
+{
+  "title": "SQL Injection in User Authentication",
+  "description": "The login form at /login.php is vulnerable to SQL injection attacks. An attacker can bypass authentication by injecting malicious SQL code into the username field.",
+  "steps_to_reproduce": "1. Navigate to https://vulnerable-app.com/login.php\n2. Enter ' OR 1=1-- in the username field\n3. Enter any password\n4. Click Login\n5. The application will log in as the first user in the database",
+  "payload": "' OR 1=1--",
+  "affected_url": "https://vulnerable-app.com/login.php",
+  "affected_software": "Custom PHP Web Application",
+  "software_version": "2.1.0",
+  "reporter": "Security Researcher",
+  "submission_date": "2024-01-15T10:30:00Z",
+  "additional_info": {
+    "database_type": "MySQL",
+    "error_messages": "MySQL error messages are displayed to users",
+    "authentication_bypass": true
+  }
+}

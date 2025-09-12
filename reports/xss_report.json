@@ -1,0 +1,17 @@
+{
+  "title": "Reflected XSS in Search Function",
+  "description": "The search functionality at /search.php is vulnerable to reflected Cross-Site Scripting (XSS) attacks. User input is not properly sanitized before being displayed in the response.",
+  "steps_to_reproduce": "1. Navigate to https://vulnerable-app.com/search.php\n2. Enter <script>alert('XSS')</script> in the search field\n3. Click Search\n4. The JavaScript code will execute in the browser",
+  "payload": "<script>alert('XSS')</script>",
+  "affected_url": "https://vulnerable-app.com/search.php",
+  "affected_software": "Custom PHP Web Application",
+  "software_version": "1.5.2",
+  "reporter": "Bug Bounty Hunter",
+  "submission_date": "2024-01-16T14:20:00Z",
+  "additional_info": {
+    "xss_type": "Reflected",
+    "context": "HTML",
+    "encoding": "None",
+    "waf_bypass": false
+  }
+}
